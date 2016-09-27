@@ -23,8 +23,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ *
  * @author <b>Hexosse</b> (<a href="https://github.com/hexosse">on GitHub</a>))
  */
+@SuppressWarnings("unused")
 public enum Sounds
 {
 	// List of Sounds introduced in 1.7.10
@@ -703,17 +705,17 @@ public enum Sounds
 
 
 
-	private Sounds()
+	Sounds()
 	{
-		this(null, null, null);
+		this(null, null, (Sounds[]) null);
 	}
 
-	private Sounds(Version minVersion, Version maxVersion)
+	Sounds(Version minVersion, Version maxVersion)
 	{
-		this(minVersion, maxVersion, null);
+		this(minVersion, maxVersion, (Sounds[]) null);
 	}
 
-	private Sounds(Version minVersion, Version maxVersion, Sounds... replace)
+	Sounds(Version minVersion, Version maxVersion, Sounds... replace)
 	{
 		this.minVersion = minVersion;
 		this.maxVersion = maxVersion;
@@ -742,7 +744,6 @@ public enum Sounds
 		{
 			// This sound does'nt even exist.
 			Sounds found = Sounds.valueOf(soundName);
-			if(found == null) return sound(soundName, null);
 
 			// Found the correct sound for the current version
 			if(current.inRange(found.minVersion, found.maxVersion) || current.equals(found.maxVersion) )
