@@ -733,6 +733,11 @@ public enum Sounds
 		if(this.maxVersion == null) this.maxVersion = Version.v1_10_R1;
 	}
 
+	Sound get()
+	{
+		return get(this.toString());
+	}
+
 	public static Sound get(String soundName)
 	{
 		// First, hava a look in the cache
