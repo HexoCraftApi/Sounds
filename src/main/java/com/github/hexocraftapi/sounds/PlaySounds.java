@@ -16,6 +16,7 @@ package com.github.hexocraftapi.sounds;
  * limitations under the License.
  */
 
+import com.github.hexocraftapi.util.PlayerUtil;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -54,7 +55,7 @@ public class PlaySounds
 
 	public static void broadcast(Sound sound, float volume, float pitch)
 	{
-		Collection<? extends Player> players = getOnlinePlayers();
+		Collection<? extends Player> players = PlayerUtil.getOnlinePlayers();
 
 		if(players != null) {
 			for(Player player : players)
@@ -69,7 +70,7 @@ public class PlaySounds
 
 	public static void broadcast(World world, Sound sound, float volume, float pitch)
 	{
-		Collection<? extends Player> players = getOnlinePlayers();
+		Collection<? extends Player> players = PlayerUtil.getOnlinePlayers();
 
 		if(players != null) {
 			for(Player player : players)
@@ -143,25 +144,5 @@ public class PlaySounds
 	public static void broadcast(final JavaPlugin plugin, final long ticks, final World world, final String sound, final float volume, final float pitch)
 	{
 		broadcast(plugin, ticks, world, Sounds.get(sound), volume, pitch);
-	}
-
-	/**
-	 * Gets a view of all currently logged in players.
-	 *
-	 * With this implementation of getOnlinePlayers(), it preserve from crashing your server as org.bukkit.Server.getOnlinePlayers() recently changed.
-	 *
-	 * @return a view of currently online players.
-	 */
-	public static Collection<? extends Player> getOnlinePlayers()
-	{
-		try
-		{
-			Method onlinePlayerMethod = Server.class.getMethod("getOnlinePlayers");
-			if(onlinePlayerMethod.getReturnType().equals(Collection.class))
-				return (Collection<? extends Player>) onlinePlayerMethod.invoke(Bukkit.getServer());
-			else
-				return Arrays.asList(((Player[]) onlinePlayerMethod.invoke(Bukkit.getServer())));
-		}
-		catch(Exception ignored) { return null; }
 	}
 }
