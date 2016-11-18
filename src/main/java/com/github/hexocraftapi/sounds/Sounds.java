@@ -762,8 +762,8 @@ public enum Sounds
 		}
 
 		// Min and Max version must be define
-		if(this.minVersion == null) this.minVersion = Version.v1_7_R1;
-		if(this.maxVersion == null) this.maxVersion = Version.v1_10_R1;
+		if(this.minVersion == null) this.minVersion = Version.values()[1];
+		if(this.maxVersion == null) this.maxVersion = Version.getVersion();
 	}
 
 	public Sound get()
